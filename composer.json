@@ -1,0 +1,22 @@
+{
+    "name": "streammachineio/php-driver",
+    "description": "PHP driver for interacting with Stream Machine.",
+    "type": "library",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Lennart Hengstmengel",
+            "email": "lennart@vazaha.nl"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Streammachine\\Driver\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9"
+    },
+    "require": {}
+}
