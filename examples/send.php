@@ -7,6 +7,7 @@ use Streammachine\Driver\Sender;
 
 include_once(realpath(dirname(__FILE__)) . '/../vendor/autoload.php');
 
+/** @var \Streammachine\Driver\Sender $sender */
 $sender = ClientBuilder::build($argv, Sender::class);
 $event = new DemoEvent();
 
