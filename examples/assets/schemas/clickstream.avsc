@@ -1,0 +1,107 @@
+{
+  "name": "ClickstreamEvent",
+  "type": "record",
+  "namespace": "io.streammachine.public_schemas.clickstream",
+  "strmSchemaId": "clickstream",
+  "fields": [
+    {
+      "name": "strmMeta",
+      "type": {
+        "type": "record",
+        "name": "StrmMeta",
+        "fields": [
+          {
+            "name": "eventContractRef",
+            "type": "string"
+          },
+          {
+            "name": "nonce",
+            "type": [
+              "null",
+              "int"
+            ],
+            "default": null
+          },
+          {
+            "name": "timestamp",
+            "type": [
+              "null",
+              "long"
+            ],
+            "default": null,
+            "logicalType": "date"
+          },
+          {
+            "name": "keyLink",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "billingId",
+            "type": [
+              "null",
+              "string"
+            ],
+            "default": null
+          },
+          {
+            "name": "consentLevels",
+            "type": {
+              "type": "array",
+              "items": "int"
+            }
+          }
+        ]
+      },
+      "doc": "TODO strmMeta will be nullable eventually, but Gateway functionality needs to be verified first!"
+    },
+    {
+      "name": "producerSessionId",
+      "type": "string"
+    },
+    {
+      "name": "url",
+      "type": "string"
+    },
+    {
+      "name": "eventType",
+      "type": "string"
+    },
+    {
+      "name": "referrer",
+      "type": "string"
+    },
+    {
+      "name": "userAgent",
+      "type": "string"
+    },
+    {
+      "name": "conversion",
+      "type": "int"
+    },
+    {
+      "name": "customer",
+      "type": {
+        "name": "Customer",
+        "type": "record",
+        "fields": [
+          {
+            "name": "id",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "abTests",
+      "type": {
+        "type": "array",
+        "items": "string"
+      }
+    }
+  ]
+}
+

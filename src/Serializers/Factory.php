@@ -10,7 +10,7 @@ class Factory
 {
     protected const TYPES = [
         SerializationType::JSON => JsonSerializer::class,
-        // TODO avro types
+        SerializationType::AVRO_BINARY => AvroBinarySerializer::class,
     ];
 
     public static function create(string $type): Serializer
