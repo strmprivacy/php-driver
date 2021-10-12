@@ -2,6 +2,7 @@
 
 namespace Examples\Events;
 
+use AvroSchema;
 use Streammachine\Driver\Contracts\Event;
 
 class DemoEvent implements Event
@@ -49,5 +50,12 @@ class DemoEvent implements Event
             'customer' => $this->customer,
             'abTests' => $this->abTests,
         ];
+    }
+
+    public function getStrmSchema(): AvroSchema
+    {
+        $json = file_get_contents(realpath(dirname(__FILE__)) . '/../../assets/schemas/clickstream.avsc');
+
+        return AvroSchema::parse($json);
     }
 }
