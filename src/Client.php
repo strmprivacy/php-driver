@@ -3,6 +3,9 @@
 namespace Streammachine\Driver;
 
 use GuzzleHttp\Client as HttpClient;
+use GuzzleHttp\Exception\RequestException;
+use Streammachine\Driver\Exceptions\AuthenticationException;
+use Streammachine\Driver\Exceptions\RefreshException;
 
 class Client
 {
@@ -41,18 +44,30 @@ class Client
 
     public function authenticate(): void
     {
-        // TODO try/catch http errors + throw custom exception
-        $response = $this->httpClient->request(
-            'POST',
-            $this->config->getAuthUri(),
-            [
-                'json' => [
-                    'billingId' => $this->billingId,
-                    'clientId' => $this->clientId,
-                    'clientSecret' => $this->clientSecret,
-                ],
-            ]
-        );
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                $this->config->getAuthUri(),
+                [
+                    'json' => [
+                        'billingId' => $this->billingId,
+                        'clientId' => $this->clientId,
+                        'clientSecret' => $this->clientSecret,
+                    ],
+                ]
+            );
+        } catch (RequestException $e) {
+            throw new AuthenticationException(
+                sprintf(
+                    'Error authenticating to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    $this->config->getAuthUri(),
+                    $this->billingId,
+                    $this->clientId,
+                    $e->getCode(),
+                    $e->getMessage(),
+                )
+            );
+        }
 
         $this->authProvider = new AuthProvider($response->getBody()->getContents());
     }
@@ -64,16 +79,28 @@ class Client
             return;
         }
 
-        // TODO try/catch http errors + throw custom exception
-        $response = $this->httpClient->request(
-            'POST',
-            $this->config->getRefreshUri(),
-            [
-                'json' => [
-                    'refreshToken' => $this->authProvider->getRefreshToken(),
-                ],
-            ]
-        );
+        try {
+            $response = $this->httpClient->request(
+                'POST',
+                $this->config->getRefreshUri(),
+                [
+                    'json' => [
+                        'refreshToken' => $this->authProvider->getRefreshToken(),
+                    ],
+                ]
+            );
+        } catch (RequestException $e) {
+            throw new RefreshException(
+                sprintf(
+                    'Error refreshing auth token to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    $this->config->getRefreshUri(),
+                    $this->billingId,
+                    $this->clientId,
+                    $e->getCode(),
+                    $e->getMessage(),
+                )
+            );
+        }
 
         $this->authProvider = new AuthProvider($response->getBody()->getContents());
     }

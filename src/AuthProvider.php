@@ -2,7 +2,7 @@
 
 namespace Streammachine\Driver;
 
-use Exception;
+use Streammachine\Driver\Exceptions\AuthenticationException;
 
 class AuthProvider
 {
@@ -22,8 +22,7 @@ class AuthProvider
         $authData = json_decode($json);
 
         if (!isset($authData->idToken, $authData->refreshToken, $authData->expiresAt)) {
-            // TODO custom exception
-            throw new Exception('invalid auth data');
+            throw new AuthenticationException('Invalid response from authenticate/refresh request');
         }
 
         $this->idToken = (string)$authData->idToken;
