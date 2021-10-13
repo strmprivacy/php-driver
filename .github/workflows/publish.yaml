@@ -1,0 +1,17 @@
+name: Publish to Packagist
+
+on:
+  release:
+    types:
+      - created
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update Packagist
+        uses: distributhor/workflow-webhook@v2
+        env:
+          webhook_url: https://packagist.org/api/github?username=streammachineio
+          webhook_secret: ${{secrets.PACKAGIST_API_TOKEN}}
