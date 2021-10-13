@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/streammachineio/php-driver/compare/v1.0.1...v1.0.2) (2021-10-13)
+
+
+### Bug Fixes
+
+* fixed publish gh workflow ([85bd297](https://github.com/streammachineio/php-driver/commit/85bd297d2c8b3878ca70a33378054f10fec390c6))
+
 ## [1.0.1](https://github.com/streammachineio/php-driver/compare/v1.0.0...v1.0.1) (2021-10-13)
 
 
