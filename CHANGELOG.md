@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/streammachineio/php-driver/compare/v1.0.2...v1.0.3) (2021-10-13)
+
+
+### Bug Fixes
+
+* call packagist webhook using curl ([61945cc](https://github.com/streammachineio/php-driver/commit/61945cc532d46180e0c476434767f80d498ddb0d))
+
 ## [1.0.2](https://github.com/streammachineio/php-driver/compare/v1.0.1...v1.0.2) (2021-10-13)
 
 
