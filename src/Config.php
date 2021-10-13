@@ -28,8 +28,6 @@ class Config
     /** @var int $stsRefreshInterval */
     protected $stsRefreshInterval = 3300;
 
-    // TODO: egress/ws
-
     public function __construct(array $config = [])
     {
         foreach ($config as $name => $value) {
