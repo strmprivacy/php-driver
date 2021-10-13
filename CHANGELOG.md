@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/streammachineio/php-driver/compare/v1.0.0...v1.0.1) (2021-10-13)
+
+
+### Bug Fixes
+
+* removed examples, moved to another repo ([0af9787](https://github.com/streammachineio/php-driver/commit/0af9787b5b75b25cef08b4acbb3083ea895e49ec))
+
 # 1.0.0 (2021-10-13)
 
 
