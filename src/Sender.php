@@ -40,7 +40,7 @@ class Sender extends Client
                     $this->billingId,
                     $this->clientId,
                     $e->getCode(),
-                    $e->getMessage(),
+                    $e->getMessage()
                 )
             );
         }

@@ -64,7 +64,7 @@ class Client
                     $this->billingId,
                     $this->clientId,
                     $e->getCode(),
-                    $e->getMessage(),
+                    $e->getMessage()
                 )
             );
         }
@@ -97,7 +97,7 @@ class Client
                     $this->billingId,
                     $this->clientId,
                     $e->getCode(),
-                    $e->getMessage(),
+                    $e->getMessage()
                 )
             );
         }
