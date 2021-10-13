@@ -13,5 +13,6 @@ jobs:
       - name: Update Packagist
         uses: distributhor/workflow-webhook@v2
         env:
-          webhook_url: https://packagist.org/api/github?username=streammachineio
+          webhook_url: https://packagist.org/api/update-package?username=streammachineio&apiToken=${{secrets.PACKAGIST_API_TOKEN}}
           webhook_secret: ${{secrets.PACKAGIST_API_TOKEN}}
+          data: '{"repository":{"url":"https://packagist.org/packages/streammachineio/php-driver"}}'
