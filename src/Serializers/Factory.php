@@ -1,10 +1,10 @@
 <?php
 
-namespace Streammachine\Driver\Serializers;
+namespace StrmPrivacy\Driver\Serializers;
 
 use InvalidArgumentException;
-use Streammachine\Driver\Contracts\Serializer;
-use Streammachine\Driver\Enums\SerializationType;
+use StrmPrivacy\Driver\Contracts\Serializer;
+use StrmPrivacy\Driver\Enums\SerializationType;
 
 class Factory
 {

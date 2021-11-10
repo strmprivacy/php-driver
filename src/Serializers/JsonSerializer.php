@@ -1,9 +1,9 @@
 <?php
 
-namespace Streammachine\Driver\Serializers;
+namespace StrmPrivacy\Driver\Serializers;
 
-use Streammachine\Driver\Contracts\Event;
-use Streammachine\Driver\Contracts\Serializer;
+use StrmPrivacy\Driver\Contracts\Event;
+use StrmPrivacy\Driver\Contracts\Serializer;
 
 class JsonSerializer implements Serializer
 {

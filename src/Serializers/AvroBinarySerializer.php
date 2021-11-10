@@ -1,13 +1,13 @@
 <?php
 
-namespace Streammachine\Driver\Serializers;
+namespace StrmPrivacy\Driver\Serializers;
 
 use AvroIOBinaryEncoder;
 use AvroIODatumWriter;
 use AvroSchema;
 use AvroStringIO;
-use Streammachine\Driver\Contracts\Event;
-use Streammachine\Driver\Contracts\Serializer;
+use StrmPrivacy\Driver\Contracts\Event;
+use StrmPrivacy\Driver\Contracts\Serializer;
 
 class AvroBinarySerializer implements Serializer
 {

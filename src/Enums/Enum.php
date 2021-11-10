@@ -1,6 +1,6 @@
 <?php
 
-namespace Streammachine\Driver\Enums;
+namespace StrmPrivacy\Driver\Enums;
 
 use ReflectionClass;
 

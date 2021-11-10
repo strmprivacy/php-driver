@@ -1,16 +1,16 @@
 <?php
 
-namespace Streammachine\Driver;
+namespace StrmPrivacy\Driver;
 
 use GuzzleHttp\Exception\RequestException;
-use Streammachine\Driver\Contracts\Event;
-use Streammachine\Driver\Contracts\Serializer;
-use Streammachine\Driver\Exceptions\SendingException;
-use Streammachine\Driver\Serializers\Factory;
+use StrmPrivacy\Driver\Contracts\Event;
+use StrmPrivacy\Driver\Contracts\Serializer;
+use StrmPrivacy\Driver\Exceptions\SendingException;
+use StrmPrivacy\Driver\Serializers\Factory;
 
 class Sender extends Client
 {
-    /** @var \Streammachine\Driver\Contracts\Serializer $serializer */
+    /** @var \StrmPrivacy\Driver\Contracts\Serializer $serializer */
     protected $serializer;
 
     public function send(Event $event, string $serializationType): void

@@ -1,17 +1,17 @@
 {
-    "name": "streammachineio/php-driver",
-    "description": "PHP driver for interacting with Stream Machine.",
+    "name": "strmprivacy/php-driver",
+    "description": "PHP driver for interacting with STRM Privacy.",
     "type": "library",
     "license": "Apache-2.0",
     "authors": [
         {
-            "name": "Lennart Hengstmengel",
-            "email": "lennart@vazaha.nl"
+            "name": "Stream Machine B.V.",
+            "email": "apis@strmprivacy.io"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Streammachine\\Driver\\": "src/",
+            "Strm\\Privacy\\Driver\\": "src/",
             "Tests\\": "tests/"
         }
     },

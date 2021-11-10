@@ -1,8 +1,8 @@
 <?php
 
-namespace Streammachine\Driver;
+namespace StrmPrivacy\Driver;
 
-use Streammachine\Driver\Exceptions\AuthenticationException;
+use StrmPrivacy\Driver\Exceptions\AuthenticationException;
 
 class AuthProvider
 {

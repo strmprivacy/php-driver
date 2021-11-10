@@ -1,6 +1,6 @@
 <?php
 
-namespace Streammachine\Driver;
+namespace StrmPrivacy\Driver;
 
 class Config
 {

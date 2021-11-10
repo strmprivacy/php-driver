@@ -1,6 +1,6 @@
 <?php
 
-namespace Streammachine\Driver\Exceptions;
+namespace StrmPrivacy\Driver\Exceptions;
 
 class SendingException extends Exception
 {
