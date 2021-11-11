@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-4": {
-            "Strm\\Privacy\\Driver\\": "src/",
+            "StrmPrivacy\\Driver\\": "src/",
             "Tests\\": "tests/"
         }
     },
