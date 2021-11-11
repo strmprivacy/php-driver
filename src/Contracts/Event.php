@@ -1,6 +1,6 @@
 <?php
 
-namespace Streammachine\Driver\Contracts;
+namespace StrmPrivacy\Driver\Contracts;
 
 use AvroSchema;
 

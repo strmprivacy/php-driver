@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Update Packagist
         run: |
-          curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=streammachineio&apiToken=${{secrets.PACKAGIST_API_TOKEN}}' -d'{"repository":{"url":"https://packagist.org/packages/streammachineio/php-driver"}}'
+          curl -XPOST -H'content-type:application/json' 'https://packagist.org/api/update-package?username=strmprivacy&apiToken=${{secrets.PACKAGIST_API_TOKEN}}' -d'{"repository":{"url":"https://packagist.org/packages/strmprivacy/php-driver"}}'

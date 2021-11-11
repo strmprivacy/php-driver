@@ -3,7 +3,7 @@
 namespace Tests;
 
 use PHPUnit\Framework\TestCase;
-use Streammachine\Driver\Config;
+use StrmPrivacy\Driver\Config;
 
 class ConfigTest extends TestCase
 {

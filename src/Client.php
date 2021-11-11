@@ -1,15 +1,15 @@
 <?php
 
-namespace Streammachine\Driver;
+namespace StrmPrivacy\Driver;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
-use Streammachine\Driver\Exceptions\AuthenticationException;
-use Streammachine\Driver\Exceptions\RefreshException;
+use StrmPrivacy\Driver\Exceptions\AuthenticationException;
+use StrmPrivacy\Driver\Exceptions\RefreshException;
 
 class Client
 {
-    /** @var \Streammachine\Driver\AuthProvider $authProvider */
+    /** @var \StrmPrivacy\Driver\AuthProvider $authProvider */
     protected $authProvider;
 
     /** @var \GuzzleHttp\Client $httpClient */
@@ -24,7 +24,7 @@ class Client
     /** @var string $clientSecret */
     protected $clientSecret;
 
-    /** @var \Streammachine\Driver\Config $config */
+    /** @var \StrmPrivacy\Driver\Config $config */
     protected $config;
 
     public function __construct(
