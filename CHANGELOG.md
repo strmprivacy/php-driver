@@ -1,3 +1,21 @@
+# [2.0.0](https://github.com/streammachineio/php-driver/compare/v1.0.3...v2.0.0) (2021-11-11)
+
+
+### Bug Fixes
+
+* incorrect path ([ce931bf](https://github.com/streammachineio/php-driver/commit/ce931bf8fa1679859e4604999c7dda41a6708fde))
+
+
+### Features
+
+* rename to STRM Privacy ([820c958](https://github.com/streammachineio/php-driver/commit/820c95852c42ae4a52018d86794ee4d86f72522c))
+* update hosts to strmprivacy.io ([6f09c24](https://github.com/streammachineio/php-driver/commit/6f09c24f012d40e2b358d3f1efde1f255abe28d1))
+
+
+### BREAKING CHANGES
+
+* Stream Machine -> STRM Privacy
+
 ## [1.0.3](https://github.com/strmprivacy/php-driver/compare/v1.0.2...v1.0.3) (2021-10-13)
 
 
