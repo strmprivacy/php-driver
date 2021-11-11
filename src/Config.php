@@ -8,7 +8,7 @@ class Config
     protected $gatewayProtocol = 'https';
 
     /** @var string $gatewayHost */
-    protected $gatewayHost = 'in.strm.services';
+    protected $gatewayHost = 'events.strmprivacy.io';
 
     /** @var string $gatewayEndpoint */
     protected $gatewayEndpoint = '/event';
@@ -17,7 +17,7 @@ class Config
     protected $stsProtocol = 'https';
 
     /** @var string $stsHost */
-    protected $stsHost = 'auth.strm.services';
+    protected $stsHost = 'sts.strmprivacy.io';
 
     /** @var string $stsAuthEndpoint */
     protected $stsAuthEndpoint = '/auth';
