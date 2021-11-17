@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/strmprivacy/php-driver/compare/v2.0.1...v2.0.2) (2021-11-17)
+
+
+### Bug Fixes
+
+* do not override config properties with null values ([6b87d89](https://github.com/strmprivacy/php-driver/commit/6b87d891a25b00c3c99783bd3cac1b7713251139))
+
 ## [2.0.1](https://github.com/strmprivacy/php-driver/compare/v2.0.0...v2.0.1) (2021-11-17)
 
 
