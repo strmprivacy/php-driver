@@ -31,7 +31,7 @@ class Config
     public function __construct(array $config = [])
     {
         foreach ($config as $name => $value) {
-            if (isset($this->{$name})) {
+            if (isset($this->{$name}) && isset($value)) {
                 $this->{$name} = $value;
             }
         }
