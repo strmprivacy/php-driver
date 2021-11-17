@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/strmprivacy/php-driver/compare/v2.0.0...v2.0.1) (2021-11-17)
+
+
+### Bug Fixes
+
+* trigger release ([576262b](https://github.com/strmprivacy/php-driver/commit/576262b0aeb39c4eff44d69f8a62dc9b54486a0a))
+
 # [2.0.0](https://github.com/streammachineio/php-driver/compare/v1.0.3...v2.0.0) (2021-11-11)
 
 
