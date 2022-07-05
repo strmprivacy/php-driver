@@ -15,9 +15,6 @@ class Client
     /** @var \GuzzleHttp\Client $httpClient */
     protected $httpClient;
 
-    /** @var string $billingId */
-    protected $billingId;
-
     /** @var string $clientId */
     protected $clientId;
 
@@ -28,13 +25,11 @@ class Client
     protected $config;
 
     public function __construct(
-        string $billingId,
         string $clientId,
         string $clientSecret,
         array $customConfig = [],
         array $httpConfig = []
     ) {
-        $this->billingId = $billingId;
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
 
@@ -50,7 +45,6 @@ class Client
                 $this->config->getAuthUri(),
                 [
                     'json' => [
-                        'billingId' => $this->billingId,
                         'clientId' => $this->clientId,
                         'clientSecret' => $this->clientSecret,
                     ],
@@ -59,9 +53,8 @@ class Client
         } catch (RequestException $e) {
             throw new AuthenticationException(
                 sprintf(
-                    'Error authenticating to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    'Error authenticating to %s for clientId %s, status code: %d, message: %s',
                     $this->config->getAuthUri(),
-                    $this->billingId,
                     $this->clientId,
                     $e->getCode(),
                     $e->getMessage()
@@ -92,9 +85,8 @@ class Client
         } catch (RequestException $e) {
             throw new RefreshException(
                 sprintf(
-                    'Error refreshing auth token to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    'Error refreshing auth token to %s for clientId %s, status code: %d, message: %s',
                     $this->config->getRefreshUri(),
-                    $this->billingId,
                     $this->clientId,
                     $e->getCode(),
                     $e->getMessage()

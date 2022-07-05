@@ -14,7 +14,7 @@ class ClientTest extends TestCase
     {
         $this->assertInstanceOf(
             Client::class,
-            new Client('billingId', 'clientId', 'clientSecret')
+            new Client('clientId', 'clientSecret')
         );
     }
 
@@ -23,7 +23,7 @@ class ClientTest extends TestCase
         $validResponse = $this->getMockResponse();
         $mockHandler = new MockHandler([$validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $this->assertTrue(!$client->authIsExpired());
@@ -34,7 +34,7 @@ class ClientTest extends TestCase
         $almostExpiredResponse = $this->getMockResponse(time() + 59);
         $mockHandler = new MockHandler([$almostExpiredResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $this->assertTrue($client->authIsExpired());
@@ -46,7 +46,7 @@ class ClientTest extends TestCase
         $validResponse = $this->getMockResponse();
         $mockHandler = new MockHandler([$expiredResponse, $validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $client->refresh();
