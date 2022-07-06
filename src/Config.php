@@ -13,17 +13,17 @@ class Config
     /** @var string $gatewayEndpoint */
     protected $gatewayEndpoint = '/event';
 
-    /** @var string $keycloakProtocol */
-    protected $keycloakProtocol = 'https';
+    /** @var string $authProtocol */
+    protected $authProtocol = 'https';
 
-    /** @var string $keycloakHost */
-    public $keycloakHost = 'accounts.strmprivacy.io';
+    /** @var string $authHost */
+    public $authHost = 'accounts.strmprivacy.io';
 
-    /** @var string $keycloakAuthEndpoint */
-    protected $keycloakAuthEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
+    /** @var string $authAuthEndpoint */
+    protected $authAuthEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
 
-    /** @var string $keycloakRefreshEndpoint */
-    protected $keycloakRefreshEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
+    /** @var string $authRefreshEndpoint */
+    protected $authRefreshEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
 
     /** @var int $stsRefreshInterval */
     protected $stsRefreshInterval = 3300;
@@ -44,11 +44,11 @@ class Config
 
     public function getAuthUri(): string
     {
-        return sprintf('%s://%s/%s', $this->keycloakProtocol, $this->keycloakHost, ltrim($this->keycloakAuthEndpoint, '/'));
+        return sprintf('%s://%s/%s', $this->authProtocol, $this->authHost, ltrim($this->authAuthEndpoint, '/'));
     }
 
     public function getRefreshUri(): string
     {
-        return sprintf('%s://%s/%s', $this->keycloakProtocol, $this->keycloakHost, ltrim($this->keycloakRefreshEndpoint, '/'));
+        return sprintf('%s://%s/%s', $this->authProtocol, $this->authHost, ltrim($this->authRefreshEndpoint, '/'));
     }
 }

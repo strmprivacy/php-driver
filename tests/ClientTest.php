@@ -19,21 +19,21 @@ class ClientTest extends TestCase
         );
     }
 
-    public function testClientCanAuthenticateWithKeycloak(): void
+    public function testClientCanAuthenticate(): void
     {
         static::markTestSkipped('When enabling this test, enter client credentials');
 
-        $config = new Config(['keycloakHost' => 'accounts.dev.strmprivacy.io']);
+        $config = new Config(['authHost' => 'accounts.dev.strmprivacy.io']);
         $client = new Client('clientId', 'clientSecret', (array)$config);
         $client->authenticate();
         $this->assertNotTrue($client->getAccessToken() == '', 'Access Token is empty');
     }
 
-    public function testClientCanRefreshWithKeycloak(): void
+    public function testClientCanRefresh(): void
     {
         static::markTestSkipped('When enabling this test, enter client credentials');
 
-        $config = new Config(['keycloakHost' => 'accounts.dev.strmprivacy.io']);
+        $config = new Config(['authHost' => 'accounts.dev.strmprivacy.io']);
         $client = new Client('clientId', 'clientSecret', (array)$config);
         $client->authenticate();
         $oldToken = $client->getAccessToken();
@@ -43,7 +43,7 @@ class ClientTest extends TestCase
     }
 
 
-    public function testClientCanAuthenticate(): void
+    public function testClientCanAuthenticateWithExpirationTime(): void
     {
         $validResponse = $this->getMockResponse(61);
         $mockHandler = new MockHandler([$validResponse]);
