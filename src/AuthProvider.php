@@ -8,31 +8,31 @@ class AuthProvider
 {
     protected const EXPIRATION_SLACK_SECONDS = 60;
 
-    /** @var string $idToken */
-    protected $idToken;
+    /** @var string $accessToken */
+    protected $accessToken;
 
     /** @var string $refreshToken */
     protected $refreshToken;
 
     /** @var int $expiresAt */
-    protected $expiresAt;
+    public $expiresAt;
 
     public function __construct(string $json)
     {
         $authData = json_decode($json);
-
-        if (!isset($authData->idToken, $authData->refreshToken, $authData->expiresAt)) {
+        if (!isset($authData->access_token, $authData->refresh_token)) {
             throw new AuthenticationException('Invalid response from authenticate/refresh request');
         }
 
-        $this->idToken = (string)$authData->idToken;
-        $this->refreshToken = (string)$authData->refreshToken;
-        $this->expiresAt = (int)$authData->expiresAt;
+        $this->accessToken = (string)$authData->access_token;
+        $this->refreshToken = (string)$authData->refresh_token;
+
+        $this->expiresAt = (int)$authData->expires_in + time();
     }
 
-    public function getIdToken(): string
+    public function getAccessToken(): string
     {
-        return $this->idToken;
+        return $this->accessToken;
     }
 
     public function getRefreshToken(): string

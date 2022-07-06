@@ -7,6 +7,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use StrmPrivacy\Driver\Client;
+use StrmPrivacy\Driver\Config;
 
 class ClientTest extends TestCase
 {
@@ -18,9 +19,19 @@ class ClientTest extends TestCase
         );
     }
 
+    public function testClientCanAuthenticateWithKeycloak(): void
+    {
+        static::markTestSkipped('When enabling this test, enter client credentials');
+
+        $config = new Config(['keycloakHost' => 'accounts.dev.strmprivacy.io']);
+        $client = new Client('clientId', 'clientSecret', (array)$config);
+        $client->authenticate();
+        $this->assertNotTrue($client->getAccessToken() == '', 'Access Token is empty');
+    }
+
     public function testClientCanAuthenticate(): void
     {
-        $validResponse = $this->getMockResponse();
+        $validResponse = $this->getMockResponse(61);
         $mockHandler = new MockHandler([$validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
         $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
@@ -31,7 +42,7 @@ class ClientTest extends TestCase
 
     public function testClientShouldBeExpiredOnTime(): void
     {
-        $almostExpiredResponse = $this->getMockResponse(time() + 59);
+        $almostExpiredResponse = $this->getMockResponse(59);
         $mockHandler = new MockHandler([$almostExpiredResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
         $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
@@ -42,8 +53,8 @@ class ClientTest extends TestCase
 
     public function testExpiredAuthShouldRefresh(): void
     {
-        $expiredResponse = $this->getMockResponse(time() - 100);
-        $validResponse = $this->getMockResponse();
+        $expiredResponse = $this->getMockResponse();
+        $validResponse = $this->getMockResponse(100);
         $mockHandler = new MockHandler([$expiredResponse, $validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
         $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
@@ -53,17 +64,15 @@ class ClientTest extends TestCase
         $this->assertTrue(!$client->authIsExpired());
     }
 
-    protected function getMockResponse(int $expiresAt = null): Response
+    protected function getMockResponse(int $expiresIn = null): Response
     {
-        $expiresAt = is_null($expiresAt) ? time() + 3600 : $expiresAt;
-
         return new Response(
             200,
             [],
             json_encode([
-                'idToken' => 'dummy idToken',
-                'refreshToken' => 'dummy refreshToken',
-                'expiresAt' => $expiresAt,
+                'access_token' => 'dummy idToken',
+                'refresh_token' => 'dummy refreshToken',
+                'expires_in' => $expiresIn,
             ])
         );
     }
