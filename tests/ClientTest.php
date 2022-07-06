@@ -29,6 +29,20 @@ class ClientTest extends TestCase
         $this->assertNotTrue($client->getAccessToken() == '', 'Access Token is empty');
     }
 
+    public function testClientCanRefreshWithKeycloak(): void
+    {
+        static::markTestSkipped('When enabling this test, enter client credentials');
+
+        $config = new Config(['keycloakHost' => 'accounts.dev.strmprivacy.io']);
+        $client = new Client('clientId', 'clientSecret', (array)$config);
+        $client->authenticate();
+        $oldToken = $client->getAccessToken();
+        $client->refresh();
+        $this->assertTrue($client->getAccessToken() != '', 'Access Token is empty');
+        $this->assertTrue($client->getAccessToken() != $oldToken, 'Access Token has not changed');
+    }
+
+
     public function testClientCanAuthenticate(): void
     {
         $validResponse = $this->getMockResponse(61);

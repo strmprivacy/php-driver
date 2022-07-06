@@ -78,7 +78,8 @@ class Client
                 $this->config->getAuthUri(),
                 [
                     'headers' => ['content-type' => 'application/x-www-form-urlencoded'],
-                    'body' => sprintf("grant_type=refresh_token&refresh_token=%s", $this->authProvider->getRefreshToken())
+                    'body' => sprintf("grant_type=refresh_token&client_id=%s&client_secret=%s&refresh_token=%s",
+                        $this->clientId, $this->clientSecret, $this->authProvider->getRefreshToken())
                 ]
             );
         } catch (RequestException $e) {
