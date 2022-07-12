@@ -1,3 +1,13 @@
+# [3.0.0](https://github.com/strmprivacy/php-driver/compare/v2.0.2...v3.0.0) (2022-07-12)
+
+
+* Feature/strm 1259 (#4) ([19212c0](https://github.com/strmprivacy/php-driver/commit/19212c00f903f9cf317bc899bb40fd07a4cdca25)), closes [#4](https://github.com/strmprivacy/php-driver/issues/4)
+
+
+### BREAKING CHANGES
+
+* authentication has changed
+
 ## [2.0.2](https://github.com/strmprivacy/php-driver/compare/v2.0.1...v2.0.2) (2021-11-17)
 
 
