@@ -24,7 +24,7 @@ class Sender extends Client
                 $this->config->getGatewayUri(),
                 [
                     'headers' => [
-                        'Authorization' => 'Bearer ' . $this->authProvider->getIdToken(),
+                        'Authorization' => 'Bearer ' . $this->authProvider->getAccessToken(),
                         'Strm-Serialization-Type' => $serializer->getContentType(),
                         'Strm-Schema-Ref' => $event->getStrmSchemaRef(),
                         'Content-type' => $serializer->getContentType(),
@@ -35,9 +35,8 @@ class Sender extends Client
         } catch (RequestException $e) {
             throw new SendingException(
                 sprintf(
-                    'Error sending event to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    'Error sending event to %s for clientId %s, status code: %d, message: %s',
                     $this->config->getGatewayUri(),
-                    $this->billingId,
                     $this->clientId,
                     $e->getCode(),
                     $e->getMessage()

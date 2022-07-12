@@ -7,6 +7,7 @@ use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use StrmPrivacy\Driver\Client;
+use StrmPrivacy\Driver\Config;
 
 class ClientTest extends TestCase
 {
@@ -14,16 +15,40 @@ class ClientTest extends TestCase
     {
         $this->assertInstanceOf(
             Client::class,
-            new Client('billingId', 'clientId', 'clientSecret')
+            new Client('clientId', 'clientSecret')
         );
     }
 
     public function testClientCanAuthenticate(): void
     {
-        $validResponse = $this->getMockResponse();
+        static::markTestSkipped('When enabling this test, enter client credentials');
+
+        $config = new Config(['authHost' => 'accounts.dev.strmprivacy.io']);
+        $client = new Client('clientId', 'clientSecret', (array)$config);
+        $client->authenticate();
+        $this->assertNotTrue($client->getAccessToken() == '', 'Access Token is empty');
+    }
+
+    public function testClientCanRefresh(): void
+    {
+        static::markTestSkipped('When enabling this test, enter client credentials');
+
+        $config = new Config(['authHost' => 'accounts.dev.strmprivacy.io']);
+        $client = new Client('clientId', 'clientSecret', (array)$config);
+        $client->authenticate();
+        $oldToken = $client->getAccessToken();
+        $client->refresh();
+        $this->assertTrue($client->getAccessToken() != '', 'Access Token is empty');
+        $this->assertTrue($client->getAccessToken() != $oldToken, 'Access Token has not changed');
+    }
+
+
+    public function testClientCanAuthenticateWithExpirationTime(): void
+    {
+        $validResponse = $this->getMockResponse(61);
         $mockHandler = new MockHandler([$validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $this->assertTrue(!$client->authIsExpired());
@@ -31,10 +56,10 @@ class ClientTest extends TestCase
 
     public function testClientShouldBeExpiredOnTime(): void
     {
-        $almostExpiredResponse = $this->getMockResponse(time() + 59);
+        $almostExpiredResponse = $this->getMockResponse(59);
         $mockHandler = new MockHandler([$almostExpiredResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $this->assertTrue($client->authIsExpired());
@@ -42,28 +67,26 @@ class ClientTest extends TestCase
 
     public function testExpiredAuthShouldRefresh(): void
     {
-        $expiredResponse = $this->getMockResponse(time() - 100);
-        $validResponse = $this->getMockResponse();
+        $expiredResponse = $this->getMockResponse();
+        $validResponse = $this->getMockResponse(100);
         $mockHandler = new MockHandler([$expiredResponse, $validResponse]);
         $handlerStack = HandlerStack::create($mockHandler);
-        $client = new Client('billingId', 'clientId', 'clientSecret', [], ['handler' => $handlerStack]);
+        $client = new Client('clientId', 'clientSecret', [], ['handler' => $handlerStack]);
 
         $client->authenticate();
         $client->refresh();
         $this->assertTrue(!$client->authIsExpired());
     }
 
-    protected function getMockResponse(int $expiresAt = null): Response
+    protected function getMockResponse(int $expiresIn = null): Response
     {
-        $expiresAt = is_null($expiresAt) ? time() + 3600 : $expiresAt;
-
         return new Response(
             200,
             [],
             json_encode([
-                'idToken' => 'dummy idToken',
-                'refreshToken' => 'dummy refreshToken',
-                'expiresAt' => $expiresAt,
+                'access_token' => 'dummy idToken',
+                'refresh_token' => 'dummy refreshToken',
+                'expires_in' => $expiresIn,
             ])
         );
     }

@@ -28,8 +28,8 @@ class ConfigTest extends TestCase
     public function testCustomAuthUriIsCorrect(): void
     {
         $config = new Config([
-            'stsHost' => 'customhost',
-            'stsAuthEndpoint' => 'customendpoint',
+            'authHost' => 'customhost',
+            'authAuthEndpoint' => 'customendpoint',
         ]);
 
         $this->assertEquals(
@@ -41,8 +41,8 @@ class ConfigTest extends TestCase
     public function testCustomRefreshUriIsCorrect(): void
     {
         $config = new Config([
-            'stsHost' => 'customhost',
-            'stsRefreshEndpoint' => 'customendpoint',
+            'authHost' => 'customhost',
+            'authRefreshEndpoint' => 'customendpoint',
         ]);
 
         $this->assertEquals(

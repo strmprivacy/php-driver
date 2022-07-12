@@ -13,17 +13,17 @@ class Config
     /** @var string $gatewayEndpoint */
     protected $gatewayEndpoint = '/event';
 
-    /** @var string $stsProtocol */
-    protected $stsProtocol = 'https';
+    /** @var string $authProtocol */
+    protected $authProtocol = 'https';
 
-    /** @var string $stsHost */
-    protected $stsHost = 'sts.strmprivacy.io';
+    /** @var string $authHost */
+    public $authHost = 'accounts.strmprivacy.io';
 
-    /** @var string $stsAuthEndpoint */
-    protected $stsAuthEndpoint = '/auth';
+    /** @var string $authAuthEndpoint */
+    protected $authAuthEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
 
-    /** @var string $stsRefreshEndpoint */
-    protected $stsRefreshEndpoint = '/refresh';
+    /** @var string $authRefreshEndpoint */
+    protected $authRefreshEndpoint = '/auth/realms/streams/protocol/openid-connect/token';
 
     /** @var int $stsRefreshInterval */
     protected $stsRefreshInterval = 3300;
@@ -44,11 +44,11 @@ class Config
 
     public function getAuthUri(): string
     {
-        return sprintf('%s://%s/%s', $this->stsProtocol, $this->stsHost, ltrim($this->stsAuthEndpoint, '/'));
+        return sprintf('%s://%s/%s', $this->authProtocol, $this->authHost, ltrim($this->authAuthEndpoint, '/'));
     }
 
     public function getRefreshUri(): string
     {
-        return sprintf('%s://%s/%s', $this->stsProtocol, $this->stsHost, ltrim($this->stsRefreshEndpoint, '/'));
+        return sprintf('%s://%s/%s', $this->authProtocol, $this->authHost, ltrim($this->authRefreshEndpoint, '/'));
     }
 }

@@ -21,6 +21,9 @@
     "require": {
         "php": ">=7.2",
         "guzzlehttp/guzzle": "^6.3 || ^7.3",
-        "wikimedia/avro": "^1.9"
+        "wikimedia/avro": "^1.9",
+        "ext-curl": "*",
+        "curl/curl": "^2.3",
+        "ext-json": "*"
     }
 }

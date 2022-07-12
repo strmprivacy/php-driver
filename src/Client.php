@@ -4,8 +4,10 @@ namespace StrmPrivacy\Driver;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Exception\RequestException;
+use PhpParser\Node\Scalar\String_;
 use StrmPrivacy\Driver\Exceptions\AuthenticationException;
 use StrmPrivacy\Driver\Exceptions\RefreshException;
+use Curl\Curl;
 
 class Client
 {
@@ -14,9 +16,6 @@ class Client
 
     /** @var \GuzzleHttp\Client $httpClient */
     protected $httpClient;
-
-    /** @var string $billingId */
-    protected $billingId;
 
     /** @var string $clientId */
     protected $clientId;
@@ -28,16 +27,14 @@ class Client
     protected $config;
 
     public function __construct(
-        string $billingId,
         string $clientId,
         string $clientSecret,
-        array $customConfig = [],
-        array $httpConfig = []
-    ) {
-        $this->billingId = $billingId;
+        array  $customConfig = [],
+        array  $httpConfig = []
+    )
+    {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
-
         $this->config = new Config($customConfig);
         $this->httpClient = new HttpClient($httpConfig);
     }
@@ -49,19 +46,15 @@ class Client
                 'POST',
                 $this->config->getAuthUri(),
                 [
-                    'json' => [
-                        'billingId' => $this->billingId,
-                        'clientId' => $this->clientId,
-                        'clientSecret' => $this->clientSecret,
-                    ],
+                    'headers' => ['content-type' => 'application/x-www-form-urlencoded'],
+                    'body' => sprintf("grant_type=client_credentials&client_id=%s&client_secret=%s", $this->clientId, $this->clientSecret)
                 ]
             );
         } catch (RequestException $e) {
             throw new AuthenticationException(
                 sprintf(
-                    'Error authenticating to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    'Error authenticating to %s for clientId %s, status code: %d, message: %s',
                     $this->config->getAuthUri(),
-                    $this->billingId,
                     $this->clientId,
                     $e->getCode(),
                     $e->getMessage()
@@ -82,19 +75,18 @@ class Client
         try {
             $response = $this->httpClient->request(
                 'POST',
-                $this->config->getRefreshUri(),
+                $this->config->getAuthUri(),
                 [
-                    'json' => [
-                        'refreshToken' => $this->authProvider->getRefreshToken(),
-                    ],
+                    'headers' => ['content-type' => 'application/x-www-form-urlencoded'],
+                    'body' => sprintf("grant_type=refresh_token&client_id=%s&client_secret=%s&refresh_token=%s",
+                        $this->clientId, $this->clientSecret, $this->authProvider->getRefreshToken())
                 ]
             );
         } catch (RequestException $e) {
             throw new RefreshException(
                 sprintf(
-                    'Error refreshing auth token to %s for billingId %s and clientId %s, status code: %d, message: %s',
+                    'Error refreshing auth token to %s for clientId %s, status code: %d, message: %s',
                     $this->config->getRefreshUri(),
-                    $this->billingId,
                     $this->clientId,
                     $e->getCode(),
                     $e->getMessage()
@@ -123,7 +115,11 @@ class Client
         if (!isset($this->authProvider)) {
             return true;
         }
-
         return $this->authProvider->isExpired();
+    }
+
+    public function getAccessToken(): string
+    {
+        return $this->authProvider->getAccessToken();
     }
 }
